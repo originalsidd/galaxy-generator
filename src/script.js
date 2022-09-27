@@ -59,7 +59,7 @@ const generateGalaxy = () => {
         const i3 = i * 3;
 
         // Position
-        const radius = Math.random() * parameters.radius;
+        const radius = Math.pow(Math.random(), 1.2) * parameters.radius;
         const spinAngle = radius * parameters.spin;
         const branchAngle =
             ((i % parameters.branches) / parameters.branches) * Math.PI * 2;
@@ -79,7 +79,7 @@ const generateGalaxy = () => {
 
         positions[i3 + 0] =
             Math.cos(branchAngle + spinAngle) * radius + randomX;
-        positions[i3 + 1] = randomY;
+        positions[i3 + 1] = randomY + (Math.random() - 0.5) * 0.1;
         positions[i3 + 2] =
             Math.sin(branchAngle + spinAngle) * radius + randomZ;
 
@@ -216,6 +216,12 @@ const tick = () => {
 
     //  Update controls
     controls.update();
+
+    // Animation
+    points.rotation.y = elapsedTime / 50;
+    points.position.y = Math.sin(elapsedTime) / 10;
+    points.position.x = Math.cos(elapsedTime) / 100;
+    points.position.z = Math.sin(elapsedTime) / 100;
 
     //  Render
     renderer.render(scene, camera);
